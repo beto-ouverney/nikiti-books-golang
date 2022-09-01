@@ -22,11 +22,11 @@ services:
       HOSTNAME: db
   db:
     container_name: nikiti_books_db
-    image: postgres
+    image: mongo
     platform: linux/x86_64
     restart: always
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

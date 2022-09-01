@@ -6,6 +6,7 @@ import (
 	"github.com/beto-ouverney/nikiti-books/model"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func TestAdd(t *testing.T) {
@@ -28,6 +29,8 @@ func TestAdd(t *testing.T) {
 					Author:   "J.R.R. Tolkien",
 					Category: []string{"Fantasy", "Adventure"},
 					Synopsis: "The Lord of the Rings is an epic[ high-fantasy novel by English author and scholar J. R. R. Tolkien.",
+					Created:  time.Now(),
+					Updated:  time.Now(),
 				},
 			},
 			want: nil,

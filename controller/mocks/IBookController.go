@@ -12,6 +12,22 @@ type IBookController struct {
 	mock.Mock
 }
 
+// Add provides a mock function with given fields: title, author, synopsis, category
+func (_m *IBookController) Add(title string, author string, synopsis string, category []string) *customerror.CustomError {
+	ret := _m.Called(title, author, synopsis, category)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string, string, string, []string) *customerror.CustomError); ok {
+		r0 = rf(title, author, synopsis, category)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
+}
+
 // Delete provides a mock function with given fields: name
 func (_m *IBookController) Delete(name string) *customerror.CustomError {
 	ret := _m.Called(name)
@@ -76,6 +92,22 @@ func (_m *IBookController) FindBook(name string) ([]byte, *customerror.CustomErr
 	}
 
 	return r0, r1
+}
+
+// Update provides a mock function with given fields: param, title, author, synopsis, category
+func (_m *IBookController) Update(param string, title string, author string, synopsis string, category []string) *customerror.CustomError {
+	ret := _m.Called(param, title, author, synopsis, category)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string, string, string, string, []string) *customerror.CustomError); ok {
+		r0 = rf(param, title, author, synopsis, category)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewIBookController interface {

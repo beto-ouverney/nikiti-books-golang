@@ -1,4 +1,4 @@
-package model_test
+package test_test
 
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"
@@ -6,35 +6,34 @@ import (
 	"github.com/beto-ouverney/nikiti-books/model/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
-func TestBookModel_Update(t *testing.T) {
+func TestAdd(t *testing.T) {
 	assert := assert.New(t)
 
 	type args struct {
-		param string
-		book  *entity.Book
+		book *entity.Book
 	}
+
 	tests := []struct {
 		name string
 		args args
 		want *customerror.CustomError
-		msg  string
-		msg1 string
 	}{
 		{
-			name: "Should be able to update a book by title",
+			name: "Should be able to Add a book",
 			args: args{
-				param: "The Lord of the Rings",
 				book: &entity.Book{
 					Title:    "The Lord of the Rings",
 					Author:   "J.R.R. Tolkien",
-					Category: []string{"High-Fantasy", "Adventure"},
+					Category: []string{"Fantasy", "Adventure"},
 					Synopsis: "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien.",
+					Created:  time.Now(),
+					Updated:  time.Now(),
 				},
 			},
 			want: nil,
-			msg:  "Error should be nil",
 		},
 	}
 
@@ -42,10 +41,12 @@ func TestBookModel_Update(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			m := new(mocks.IBookModel)
-			m.On("Update", tt.args.param, tt.args.book).Return(tt.want)
 
-			got := m.Update(tt.args.param, tt.args.book)
-			assert.Equalf(tt.want, got, tt.msg)
+			m.On("Add", tt.args.book).Return(nil)
+
+			err := m.Add(tt.args.book)
+
+			assert.Nil(err, "Error should be nil")
 		})
 	}
 }

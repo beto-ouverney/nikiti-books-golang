@@ -7,6 +7,7 @@ import (
 
 type IBookController interface {
 	FindAll() ([]byte, *customerror.CustomError)
+	FindBook(name string) ([]byte, *customerror.CustomError)
 }
 
 type BookController struct {

@@ -1,4 +1,4 @@
-package service_test
+package test_test
 
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"

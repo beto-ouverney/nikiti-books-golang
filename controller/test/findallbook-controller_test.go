@@ -1,4 +1,4 @@
-package controller
+package test
 
 import (
 	mocks_controller "github.com/beto-ouverney/nikiti-books/controller/mocks"

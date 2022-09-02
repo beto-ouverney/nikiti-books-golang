@@ -14,6 +14,22 @@ type IBookService struct {
 	mock.Mock
 }
 
+// Add provides a mock function with given fields: book
+func (_m *IBookService) Add(book *entity.Book) *customerror.CustomError {
+	ret := _m.Called(book)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(*entity.Book) *customerror.CustomError); ok {
+		r0 = rf(book)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
+}
+
 // Delete provides a mock function with given fields: param
 func (_m *IBookService) Delete(param string) *customerror.CustomError {
 	ret := _m.Called(param)
@@ -78,6 +94,22 @@ func (_m *IBookService) FindBook(title string) (*entity.Book, *customerror.Custo
 	}
 
 	return r0, r1
+}
+
+// Update provides a mock function with given fields: param, book
+func (_m *IBookService) Update(param string, book *entity.Book) *customerror.CustomError {
+	ret := _m.Called(param, book)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string, *entity.Book) *customerror.CustomError); ok {
+		r0 = rf(param, book)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewIBookService interface {

@@ -16,12 +16,11 @@ func TestBookModel_Update(t *testing.T) {
 		book  *entity.Book
 	}
 	tests := []struct {
-		name  string
-		args  args
-		want  *entity.Book
-		want1 *customerror.CustomError
-		msg   string
-		msg1  string
+		name string
+		args args
+		want *customerror.CustomError
+		msg  string
+		msg1 string
 	}{
 		{
 			name: "Should be able to update a book by title",
@@ -34,15 +33,8 @@ func TestBookModel_Update(t *testing.T) {
 					Synopsis: "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien.",
 				},
 			},
-			want: &entity.Book{
-				Title:    "The Lord of the Rings",
-				Author:   "J.R.R. Tolkien",
-				Category: []string{"High-Fantasy", "Adventure"},
-				Synopsis: "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien.",
-			},
-			want1: nil,
-			msg:   "Book should be updated",
-			msg1:  "Error should be nil",
+			want: nil,
+			msg:  "Error should be nil",
 		},
 	}
 
@@ -50,11 +42,10 @@ func TestBookModel_Update(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			m := new(mocks.IBookModel)
-			m.On("Update", tt.args.param, tt.args.book).Return(tt.want, tt.want1)
+			m.On("Update", tt.args.param, tt.args.book).Return(tt.want)
 
-			got, got1 := m.Update(tt.args.param, tt.args.book)
+			got := m.Update(tt.args.param, tt.args.book)
 			assert.Equalf(tt.want, got, tt.msg)
-			assert.Equalf(tt.want1, got1, tt.msg1)
 		})
 	}
 }

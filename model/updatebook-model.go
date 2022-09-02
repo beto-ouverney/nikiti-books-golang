@@ -9,7 +9,7 @@ import (
 )
 
 // Update updates a book in the database
-func (m *BookModel) Update(param string, book *entity.Book) (*entity.Book, *customerror.CustomError) {
+func (m *BookModel) Update(param string, book *entity.Book) *customerror.CustomError {
 
 	book.Updated = time.Now()
 
@@ -18,7 +18,7 @@ func (m *BookModel) Update(param string, book *entity.Book) (*entity.Book, *cust
 
 	_, err := collection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
-		return nil, &customerror.CustomError{Code: customerror.EINVALID, Op: "booksmodel.Update", Err: err}
+		return &customerror.CustomError{Code: customerror.EINVALID, Op: "booksmodel.Update", Err: err}
 	}
-	return book, nil
+	return nil
 }

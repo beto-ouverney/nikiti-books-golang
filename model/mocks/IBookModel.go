@@ -97,28 +97,19 @@ func (_m *IBookModel) FindBook(param string) (*entity.Book, *customerror.CustomE
 }
 
 // Update provides a mock function with given fields: param, book
-func (_m *IBookModel) Update(param string, book *entity.Book) (*entity.Book, *customerror.CustomError) {
+func (_m *IBookModel) Update(param string, book *entity.Book) *customerror.CustomError {
 	ret := _m.Called(param, book)
 
-	var r0 *entity.Book
-	if rf, ok := ret.Get(0).(func(string, *entity.Book) *entity.Book); ok {
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string, *entity.Book) *customerror.CustomError); ok {
 		r0 = rf(param, book)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*entity.Book)
+			r0 = ret.Get(0).(*customerror.CustomError)
 		}
 	}
 
-	var r1 *customerror.CustomError
-	if rf, ok := ret.Get(1).(func(string, *entity.Book) *customerror.CustomError); ok {
-		r1 = rf(param, book)
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(*customerror.CustomError)
-		}
-	}
-
-	return r0, r1
+	return r0
 }
 
 type mockConstructorTestingTNewIBookModel interface {

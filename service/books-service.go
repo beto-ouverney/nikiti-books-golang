@@ -9,6 +9,7 @@ import (
 type IBookService interface {
 	FindAll() (*[]entity.Book, *customerror.CustomError)
 	FindBook(title string) (*entity.Book, *customerror.CustomError)
+	Delete(param string) *customerror.CustomError
 	//Add(book *entity.Book) *customerror.CustomError
 	//Delete(param string) *customerror.CustomError
 	//Update(param string, book *entity.Book) (*entity.Book, *customerror.CustomError)

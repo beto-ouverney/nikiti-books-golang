@@ -14,6 +14,22 @@ type IBookService struct {
 	mock.Mock
 }
 
+// Delete provides a mock function with given fields: param
+func (_m *IBookService) Delete(param string) *customerror.CustomError {
+	ret := _m.Called(param)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string) *customerror.CustomError); ok {
+		r0 = rf(param)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
+}
+
 // FindAll provides a mock function with given fields:
 func (_m *IBookService) FindAll() (*[]entity.Book, *customerror.CustomError) {
 	ret := _m.Called()

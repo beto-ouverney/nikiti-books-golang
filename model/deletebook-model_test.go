@@ -1,4 +1,4 @@
-package model
+package model_test
 
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"

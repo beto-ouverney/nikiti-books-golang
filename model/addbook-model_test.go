@@ -3,7 +3,7 @@ package model_test
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
-	"github.com/beto-ouverney/nikiti-books/model"
+	"github.com/beto-ouverney/nikiti-books/model/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -39,8 +39,13 @@ func TestAdd(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := model.New()
+
+			m := new(mocks.IBookModel)
+
+			m.On("Add", tt.args.book).Return(nil)
+
 			err := m.Add(tt.args.book)
+
 			assert.Nil(err, "Error should be nil")
 		})
 	}

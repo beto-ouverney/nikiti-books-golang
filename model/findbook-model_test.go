@@ -3,12 +3,15 @@ package model_test
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
-	"github.com/beto-ouverney/nikiti-books/model"
+	"github.com/beto-ouverney/nikiti-books/model/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestFindBook(t *testing.T) {
+
+	assert := assert.New(t)
+
 	type args struct {
 		param string
 	}
@@ -49,10 +52,13 @@ func TestFindBook(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := model.New()
+
+			m := new(mocks.IBookModel)
+			m.On("FindBook", tt.args.param).Return(tt.want, tt.want1)
+
 			got, got1 := m.FindBook(tt.args.param)
-			assert.Equalf(t, tt.want, got, tt.msg)
-			assert.Equalf(t, tt.want1, got1, tt.msg1)
+			assert.Equalf(tt.want, got, tt.msg)
+			assert.Equalf(tt.want1, got1, tt.msg1)
 		})
 	}
 }

@@ -8,7 +8,7 @@ import (
 // Add adds a book to model if book is not nil, and have valid fields
 func (s *BookService) Add(book *entity.Book) *customerror.CustomError {
 	//Verify fields before add
-	err := validationsFields(book)
+	err := validationsFields(book, "service.Add")
 	if err != nil {
 		return err
 	}

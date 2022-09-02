@@ -13,7 +13,7 @@ func (s *BookService) Update(param string, book *entity.Book) *customerror.Custo
 	}
 
 	//Verify fields
-	err := validationsFields(book)
+	err := validationsFields(book, "service.Update")
 	if err != nil {
 		return err
 	}

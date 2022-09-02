@@ -12,6 +12,6 @@ type Book struct {
 	Author   string             `json:"author" bson:"author"`
 	Category []string           `json:"category" bson:"category"`
 	Synopsis string             `json:"synopsis" bson:"synopsis"`
-	Created  time.Time          `json:"created" bson:"created"`
-	Updated  time.Time          `json:"updated" bson:"updated"`
+	Created  time.Time          `json:"created,omitempty" bson:"created,omitempty"`
+	Updated  time.Time          `json:"updated,omitempty" bson:"updated,omitempty"`
 }

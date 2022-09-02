@@ -11,10 +11,12 @@ import (
 )
 
 // FindBook finds a book by your title
-func FindBook(param string) (*entity.Book, *customerror.CustomError) {
+func (m *BookModel) FindBook(param string) (*entity.Book, *customerror.CustomError) {
 	//FIND ONE
 	filter := bson.D{{"title", param}}
 	bookResult := entity.Book{}
+
+	// Removed fields created and updated from the result because they are not necessary for users final but if admin wants to see them, he can
 	opts := options.FindOne().SetProjection(bson.D{{"created", 0}, {"updated", 0}, {"_id", 0}})
 
 	err := collection.FindOne(context.Background(), filter, opts).Decode(&bookResult)

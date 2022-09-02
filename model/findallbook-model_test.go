@@ -6,42 +6,37 @@ import (
 	"github.com/beto-ouverney/nikiti-books/model"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"time"
 )
 
-func TestAdd(t *testing.T) {
-	assert := assert.New(t)
-
-	type args struct {
-		book *entity.Book
-	}
-
+func TestFindAll(t *testing.T) {
 	tests := []struct {
-		name string
-		args args
-		want *customerror.CustomError
+		name  string
+		want  *[]entity.Book
+		want1 *customerror.CustomError
+		msg   string
+		msg1  string
 	}{
 		{
-			name: "Should be able to Add a book",
-			args: args{
-				book: &entity.Book{
+			name: "Should be able to find all books",
+			want: &[]entity.Book{
+				{
 					Title:    "The Lord of the Rings",
 					Author:   "J.R.R. Tolkien",
 					Category: []string{"Fantasy", "Adventure"},
 					Synopsis: "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien.",
-					Created:  time.Now(),
-					Updated:  time.Now(),
 				},
 			},
-			want: nil,
+			want1: nil,
+			msg:   "Books should be found",
+			msg1:  "Error should be nil",
 		},
 	}
-
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m := model.New()
-			err := m.Add(tt.args.book)
-			assert.Nil(err, "Error should be nil")
+			got, got1 := m.FindAll()
+			assert.Equalf(t, tt.want, got, tt.msg)
+			assert.Equalf(t, tt.want1, got1, tt.msg1)
 		})
 	}
 }

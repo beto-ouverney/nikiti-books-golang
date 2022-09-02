@@ -8,7 +8,7 @@ import (
 )
 
 //Add adds a book to the database
-func Add(book *entity.Book) *customerror.CustomError {
+func (m *BookModel) Add(book *entity.Book) *customerror.CustomError {
 
 	book.Created = time.Now()
 	book.Updated = time.Now()

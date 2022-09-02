@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/beto-ouverney/nikiti-books/config"
+	"github.com/beto-ouverney/nikiti-books/customerror"
+	"github.com/beto-ouverney/nikiti-books/entity"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -11,8 +13,20 @@ import (
 
 var collection *mongo.Collection
 
-func init() {
+// IBookModel is the interface for the BookModel
+type IBookModel interface {
+	Add(book *entity.Book) *customerror.CustomError
+	FindBook(param string) (*entity.Book, *customerror.CustomError)
+	FindAll() (*[]entity.Book, *customerror.CustomError)
+}
 
+// BookModel is the model
+type BookModel struct {
+	IBookModel
+}
+
+// New creates a new BookModel
+func New() IBookModel {
 	var cred options.Credential
 
 	cred.Username = config.MONGO_USER
@@ -28,4 +42,5 @@ func init() {
 	collection = client.Database("nikiti_books_db").Collection("books")
 	fmt.Println("Collection is ready")
 
+	return &BookModel{}
 }

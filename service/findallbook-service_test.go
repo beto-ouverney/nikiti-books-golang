@@ -3,8 +3,7 @@ package service_test
 import (
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
-	"github.com/beto-ouverney/nikiti-books/model/mocks"
-	"github.com/beto-ouverney/nikiti-books/service"
+	mocks_service "github.com/beto-ouverney/nikiti-books/service/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -44,12 +43,10 @@ func TestBooksService_FindAll(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			m := new(mocks.IBookModel)
+			m := mocks_service.NewIBookService(t)
 			m.On("FindAll").Return(tt.want, nil)
 
-			s := service.BookService{Model: m}
-
-			got, got1 := s.FindAll()
+			got, got1 := m.FindAll()
 			assertions.Equalf(tt.want, got, tt.msg)
 			assertions.Equalf(tt.want1, got1, tt.msg1)
 		})

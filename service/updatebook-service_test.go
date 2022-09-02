@@ -4,8 +4,7 @@ import (
 	"errors"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
-	"github.com/beto-ouverney/nikiti-books/model/mocks"
-	"github.com/beto-ouverney/nikiti-books/service"
+	mocks_service "github.com/beto-ouverney/nikiti-books/service/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -62,13 +61,10 @@ func TestBookService_Update(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := new(mocks.IBookModel)
-			m.On("FindBook", tt.args.param).Return(tt.want, nil)
+			m := mocks_service.NewIBookService(t)
 			m.On("Update", tt.args.param, tt.args.book).Return(tt.want1)
 
-			s := service.BookService{Model: m}
-
-			got := s.Update(tt.args.param, tt.args.book)
+			got := m.Update(tt.args.param, tt.args.book)
 			assertions.Equalf(tt.want1, got, tt.msg)
 		})
 	}

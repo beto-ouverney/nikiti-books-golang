@@ -4,8 +4,7 @@ import (
 	"errors"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
-	"github.com/beto-ouverney/nikiti-books/model/mocks"
-	"github.com/beto-ouverney/nikiti-books/service"
+	mocks_service "github.com/beto-ouverney/nikiti-books/service/mocks"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -20,6 +19,7 @@ func TestBookService_Delete(t *testing.T) {
 		name  string
 		args  args
 		want  *entity.Book
+		want2 *customerror.CustomError
 		want1 *customerror.CustomError
 		msg   string
 	}{
@@ -59,13 +59,10 @@ func TestBookService_Delete(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := new(mocks.IBookModel)
-			m.On("FindBook", tt.args.title).Return(tt.want, nil)
+			m := mocks_service.NewIBookService(t)
 			m.On("Delete", tt.args.title).Return(tt.want1)
 
-			s := service.BookService{Model: m}
-
-			got := s.Delete(tt.args.title)
+			got := m.Delete(tt.args.title)
 			assertions.Equal(tt.want1, got, tt.msg)
 		})
 	}

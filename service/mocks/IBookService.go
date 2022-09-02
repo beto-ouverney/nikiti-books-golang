@@ -39,6 +39,31 @@ func (_m *IBookService) FindAll() (*[]entity.Book, *customerror.CustomError) {
 	return r0, r1
 }
 
+// FindBook provides a mock function with given fields: title
+func (_m *IBookService) FindBook(title string) (*entity.Book, *customerror.CustomError) {
+	ret := _m.Called(title)
+
+	var r0 *entity.Book
+	if rf, ok := ret.Get(0).(func(string) *entity.Book); ok {
+		r0 = rf(title)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*entity.Book)
+		}
+	}
+
+	var r1 *customerror.CustomError
+	if rf, ok := ret.Get(1).(func(string) *customerror.CustomError); ok {
+		r1 = rf(title)
+	} else {
+		if ret.Get(1) != nil {
+			r1 = ret.Get(1).(*customerror.CustomError)
+		}
+	}
+
+	return r0, r1
+}
+
 type mockConstructorTestingTNewIBookService interface {
 	mock.TestingT
 	Cleanup(func())

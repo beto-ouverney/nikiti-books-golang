@@ -18,7 +18,7 @@ func (m *BookModel) FindBook(param string) (*entity.Book, *customerror.CustomErr
 
 	// Removed `created` and `updated` fields from result as they were not relevant for the final users. Nevertheless,
 	// the admin user can remove them manually
-	opts := options.FindOne().SetProjection(bson.D{{"created", 0}, {"updated", 0}, {"_id", 0}})
+	opts := options.FindOne().SetProjection(bson.D{{"_id", 0}})
 
 	err := collection.FindOne(context.Background(), filter, opts).Decode(&bookResult)
 	if err != nil {

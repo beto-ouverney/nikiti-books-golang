@@ -13,9 +13,10 @@ func FindAll(w http.ResponseWriter, r *http.Request) {
 	response := []byte("{\"message\":\"Error\"}")
 	defer r.Body.Close()
 
-	c := controller.New();
+	c := controller.New()
 
 	response, err := c.FindAll()
+	
 	if err != nil {
 		if err.Code != customerror.ECONFLICT {
 			log.Printf("Error: %v", err)

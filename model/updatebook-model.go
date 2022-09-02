@@ -5,13 +5,10 @@ import (
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
 	"go.mongodb.org/mongo-driver/bson"
-	"time"
 )
 
 // Update updates a book in the database
 func (m *BookModel) Update(param string, book *entity.Book) *customerror.CustomError {
-
-	book.Updated = time.Now()
 
 	filter := bson.M{"title": param}
 	update := bson.M{"$set": book}

@@ -1,6 +1,7 @@
 package customrouter
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"regexp"
@@ -65,7 +66,8 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if params == nil {
 			continue // No match found
 		}
-
+		ctx := context.WithValue(r.Context(), "params", params)
+		e.HandlerFunc.ServeHTTP(w, r.WithContext(ctx))
 		return
 	}
 	http.NotFound(w, r)

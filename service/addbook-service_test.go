@@ -1,10 +1,11 @@
-package service
+package service_test
 
 import (
 	"errors"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
 	"github.com/beto-ouverney/nikiti-books/model/mocks"
+	"github.com/beto-ouverney/nikiti-books/service"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -127,7 +128,7 @@ func TestBookService_Add(t *testing.T) {
 			m := new(mocks.IBookModel)
 			m.On("Add", tt.args.book).Return(tt.want)
 
-			s := BookService{Model: m}
+			s := service.BookService{Model: m}
 			got := s.Add(tt.args.book)
 
 			assertions.Equalf(tt.want, got, tt.msg)

@@ -1,10 +1,11 @@
-package service
+package service_test
 
 import (
 	"errors"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
 	"github.com/beto-ouverney/nikiti-books/model/mocks"
+	"github.com/beto-ouverney/nikiti-books/service"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -65,7 +66,7 @@ func TestBookService_Update(t *testing.T) {
 			m.On("FindBook", tt.args.param).Return(tt.want, nil)
 			m.On("Update", tt.args.param, tt.args.book).Return(tt.want1)
 
-			s := BookService{Model: m}
+			s := service.BookService{Model: m}
 
 			got := s.Update(tt.args.param, tt.args.book)
 			assertions.Equalf(tt.want1, got, tt.msg)

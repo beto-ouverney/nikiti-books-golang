@@ -12,6 +12,22 @@ type IBookController struct {
 	mock.Mock
 }
 
+// Delete provides a mock function with given fields: name
+func (_m *IBookController) Delete(name string) *customerror.CustomError {
+	ret := _m.Called(name)
+
+	var r0 *customerror.CustomError
+	if rf, ok := ret.Get(0).(func(string) *customerror.CustomError); ok {
+		r0 = rf(name)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*customerror.CustomError)
+		}
+	}
+
+	return r0
+}
+
 // FindAll provides a mock function with given fields:
 func (_m *IBookController) FindAll() ([]byte, *customerror.CustomError) {
 	ret := _m.Called()

@@ -27,6 +27,12 @@ func TestFindAll(t *testing.T) {
 					Category: []string{"Fantasy", "Adventure"},
 					Synopsis: "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien.",
 				},
+				{
+					Title:    "The Hobbit",
+					Author:   "J.R.R. Tolkien",
+					Category: []string{"Fantasy", "Adventure"},
+					Synopsis: "The Hobbit is a children's fantasy novel by English author J. R. R. Tolkien.",
+				},
 			},
 			want1: nil,
 			msg:   "Books should be found",

@@ -14,7 +14,8 @@ import (
 func (m *BookModel) FindAll() (*[]entity.Book, *customerror.CustomError) {
 	var books []entity.Book
 
-	// Removed fields created and updated from the result because they are not necessary for users final but if admin wants to see them, he can
+	// Removed `created` and `updated` fields from result as they were not relevant for the final users. Nevertheless,
+	// the admin user can remove them manually
 	opts := options.Find().SetProjection(bson.D{{"created", 0}, {"updated", 0}, {"_id", 0}})
 
 	cur, err := collection.Find(context.Background(), bson.D{}, opts)

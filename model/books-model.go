@@ -18,6 +18,7 @@ type IBookModel interface {
 	Add(book *entity.Book) *customerror.CustomError
 	FindBook(param string) (*entity.Book, *customerror.CustomError)
 	FindAll() (*[]entity.Book, *customerror.CustomError)
+	Delete(param string) *customerror.CustomError
 }
 
 // BookModel is the model

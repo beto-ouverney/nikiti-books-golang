@@ -1,4 +1,4 @@
-package handler_test
+package test_test
 
 import (
 	"bytes"
@@ -23,7 +23,7 @@ func TestAdd(t *testing.T) {
 	if strings.Contains(config.MONGO_CONNECT, "6306") {
 		t.Log("Initializing the database for testing")
 		initDBTEST(t)
-		//defer dropDb(t)
+		defer dropDb(t)
 
 	} else {
 		t.Skip("Skipping test because it is not a test environment, the port number is not 6306")
@@ -93,7 +93,7 @@ func TestAddFailTests(t *testing.T) {
 	if strings.Contains(config.MONGO_CONNECT, "6306") {
 		t.Log("Initializing the database for testing")
 		initDBTEST(t)
-		//defer dropDb(t)
+		defer dropDb(t)
 
 	} else {
 		t.Skip("Skipping test because it is not a test environment, the port number is not 6306")

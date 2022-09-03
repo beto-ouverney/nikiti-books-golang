@@ -1,4 +1,4 @@
-package handler_test
+package test_test
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ func TestDelete(t *testing.T) {
 	if strings.Contains(config.MONGO_CONNECT, "6306") {
 		t.Log("Initializing the database for testing")
 		initDBTEST(t)
-		//defer dropDb(t)
+		defer dropDb(t)
 	} else {
 		t.Skip("Skipping test because it is not a test environment, the port number is not 6306")
 	}
@@ -60,7 +60,7 @@ func TestDelete(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.describe, func(t *testing.T) {
 			path := fmt.Sprintf("/books/%s", url.QueryEscape(test.title))
-			t.Log(url.QueryEscape(test.title))
+
 			req := httptest.NewRequest(http.MethodDelete, path, nil)
 			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)

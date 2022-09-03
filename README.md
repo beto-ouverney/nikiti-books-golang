@@ -167,10 +167,6 @@ docker-compose -f docker-compose.dev.yml up -d --build
 - para que não haja conflito entre os dados de teste e os dados de uso continuo.
 - Por padrão ele vem setado para o banco de teste, para mudar deve entrar na pasta config e comentar as constantes MONGO_CONNECT e PORT e descomentar as de produção
 
-```bash
-docker-compose -f docker-compose.dev.yml up -d --build
-```
-
 - Para rodar o projeto
 
 ```bash

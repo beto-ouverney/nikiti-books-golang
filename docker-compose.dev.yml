@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: nikiti_books_db
+    image: mongo
+    platform: linux/x86_64
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+  db_test:
+    container_name: nikiti-books-db-test
+    image: mongo
+    platform: linux/x86_64
+    restart: always
+    ports:
+      - "6306:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

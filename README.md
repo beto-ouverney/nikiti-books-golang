@@ -2,7 +2,7 @@
 
 É uma API que controla os livros de um usuário
 
-## Table of contents
+## Conteúdo
 
 - [Visão Geral do Projeto](#general-view)
     - [O Desafio](#the-challenge)
@@ -12,9 +12,9 @@
 - [Uso](#usage)
 - [Author](#author)
 
-## General view
+## Visão Geral
 
-### The challenge
+### O Desafio
 
 Uma API que controla os livros de um usuário, lista um ou mais livros, exclui, adiciona e atualiza.
 
@@ -152,14 +152,14 @@ este possuir o melhor benchmark de performance, e o banco de dados escolhido foi
     Mas, no geral, temos alguns pontos.O MongoDB foi o escolhido porque teria de retornar muitas vezes o livro com o seu autor, neste sentido o MongoDB é melhor, pois, estaria tudo em um documento apenas.
     Pois, entra no sentido que se fosse MySQL faríamos um JOIN, e comumente, ele é uma operação dita de razoável processamento, muitos JOIN’s, significam um peso muito grande de processamento. Já o MongoDB não teria esse peso dos JOIN’s.
 
-### Tools used
+### Ferramentas usadas
 
 - [Golang](https://golang.org/)
 - [MongoDB](https://www.mongodb.com/)
 - [Chi](https://github.com/go-chi/chi)
 - [Docker](https://www.docker.com/)
 
-## Usage
+## Uso
 
 - Clone o repositório
 ```bash

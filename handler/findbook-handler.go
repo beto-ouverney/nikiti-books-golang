@@ -16,7 +16,7 @@ func FindBook(w http.ResponseWriter, r *http.Request) {
 
 	title, errP := url.QueryUnescape(chi.URLParam(r, "title"))
 	if errP != nil {
-		errorReturn(w, r, 500, errP.Error())
+		errorReturn(w, 500, errP.Error())
 	}
 	c := controller.New()
 
@@ -46,6 +46,6 @@ func FindBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	_, errW := w.Write(response)
 	if errW != nil {
-		errorReturn(w, r, 500, errW.Error())
+		errorReturn(w, 500, errW.Error())
 	}
 }

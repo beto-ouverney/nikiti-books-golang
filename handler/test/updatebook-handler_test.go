@@ -191,6 +191,7 @@ func TestUpdateFailTests(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
+			t.Log("data", string(data))
 
 			path := fmt.Sprintf("/books/%s", url.QueryEscape("Taghos Tecnologia"))
 			req := httptest.NewRequest(http.MethodPut, path, bytes.NewBuffer(data))

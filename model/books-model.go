@@ -29,6 +29,7 @@ type BookModel struct {
 
 // New creates a new BookModel
 func New() IBookModel {
+
 	var cred options.Credential
 
 	cred.Username = config.MONGO_USER
@@ -45,4 +46,5 @@ func New() IBookModel {
 	fmt.Println("Collection is ready")
 
 	return &BookModel{}
+
 }

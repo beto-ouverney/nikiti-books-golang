@@ -1,5 +1,8 @@
+<div align="right">
+<img height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" />
+</div>
 
-# Nikiti Books GO LANG with SOLID, MONGODB e MVC # <img height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" />
+# Nikiti Books GO LANG with SOLID, MONGODB e MVC #
 
 É uma API que controla os livros de um usuário
 

@@ -2,6 +2,9 @@ package customerror
 
 import "fmt"
 
+// Infelizmente não havará tempo hábil mas a ideia era criar um pacote de erros customizados para o projeto,
+// para tornar a identificação de erros mais prática e fácil através dos logs.] que seriam registrados.
+
 // Application error codes.
 const (
 	ECONFLICT  = "conflict"  // action cannot be performed - Example: duplicate email

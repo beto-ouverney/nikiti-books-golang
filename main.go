@@ -3,18 +3,19 @@ package main
 import (
 	"fmt"
 	"github.com/beto-ouverney/nikiti-books/config"
-	"github.com/beto-ouverney/nikiti-books/customrouter"
 	"github.com/beto-ouverney/nikiti-books/handler"
+	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 )
 
 func main() {
 	fmt.Println("Starting server...")
-	router := &customrouter.Router{}
-	router.Route(http.MethodGet, "/books", handler.FindAll)
+	r := chi.NewRouter()
+	r.Get("/books", handler.FindAll)
+	r.Get("/books/{title}", handler.FindBook)
 
 	log.Println("Server running on port " + config.PORT)
-	http.ListenAndServe(config.PORT, router)
+	http.ListenAndServe(config.PORT, r)
 
 }

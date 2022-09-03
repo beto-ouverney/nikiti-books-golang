@@ -2,6 +2,7 @@ package handler_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/beto-ouverney/nikiti-books/config"
 	"github.com/beto-ouverney/nikiti-books/entity"
 	"github.com/beto-ouverney/nikiti-books/handler"
@@ -9,11 +10,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 )
 
-func TestFindAll(t *testing.T) {
+func TestFindBook(t *testing.T) {
 
 	assertions := assert.New(t)
 
@@ -30,32 +32,43 @@ func TestFindAll(t *testing.T) {
 
 	router := chi.NewRouter()
 
-	router.Get("/books", handler.FindAll)
+	router.Get("/books/{title}", handler.FindBook)
 
 	tests := []struct {
 		describe        string
-		books           []entity.Book
+		books           entity.Book
+		title           string
 		expectedStatus  int
 		expectedMessage interface{}
 		assertMessage   string
 	}{
 		{
-			describe:        "Should be able to find all books",
-			books:           booksMock,
+			describe: "Should be able to find a books",
+
+			title:           booksMock[0].Title,
 			expectedStatus:  http.StatusOK,
-			expectedMessage: booksMock,
+			expectedMessage: booksMock[0],
+			assertMessage:   "Should be able to find all books",
+		},
+		{
+			describe:        "Should be able to find a books",
+			title:           booksMock[1].Title,
+			expectedStatus:  http.StatusOK,
+			expectedMessage: booksMock[1],
 			assertMessage:   "Should be able to find all books",
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.describe, func(t *testing.T) {
-			req := httptest.NewRequest(http.MethodGet, "/books", nil)
+			path := fmt.Sprintf("/books/%s", url.QueryEscape(test.title))
+			t.Log(url.QueryEscape(test.title))
+			req := httptest.NewRequest(http.MethodGet, path, nil)
 			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)
 
 			assertions.Equal(test.expectedStatus, rr.Code, "Status code should be equal")
-			var actual []entity.Book
+			var actual entity.Book
 
 			err := json.Unmarshal(rr.Body.Bytes(), &actual)
 			if err != nil {
@@ -65,5 +78,4 @@ func TestFindAll(t *testing.T) {
 		})
 
 	}
-
 }

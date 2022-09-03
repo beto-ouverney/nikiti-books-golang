@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"fmt"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/beto-ouverney/nikiti-books/entity"
 	"go.mongodb.org/mongo-driver/bson"
@@ -23,8 +22,6 @@ func (m *BookModel) FindBook(param string) (*entity.Book, *customerror.CustomErr
 	err := collection.FindOne(context.Background(), filter, opts).Decode(&bookResult)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			fmt.Println("No documents found")
-			fmt.Printf("Error: %v \n", err)
 			return nil, &customerror.CustomError{Code: customerror.ENOTFOUND, Op: "booksmodel.FindBook", Err: nil}
 		}
 		return nil, &customerror.CustomError{Code: customerror.EINVALID, Op: "booksmodel.FindBook", Err: err}

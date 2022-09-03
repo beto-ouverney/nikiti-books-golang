@@ -16,6 +16,7 @@ func main() {
 	r.Get("/books/{title}", handler.FindBook)
 	r.Delete("/books/{title}", handler.Delete)
 	r.Post("/books", handler.Add)
+	r.Put("/books/{title}", handler.Update)
 
 	log.Println("Server running on port " + config.PORT)
 	http.ListenAndServe(config.PORT, r)

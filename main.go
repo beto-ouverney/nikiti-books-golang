@@ -14,6 +14,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Get("/books", handler.FindAll)
 	r.Get("/books/{title}", handler.FindBook)
+	r.Delete("/books/{title}", handler.Delete)
+	r.Post("/books", handler.Add)
 
 	log.Println("Server running on port " + config.PORT)
 	http.ListenAndServe(config.PORT, r)

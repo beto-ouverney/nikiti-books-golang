@@ -4,12 +4,13 @@ import (
 	"github.com/beto-ouverney/nikiti-books/controller"
 	"github.com/beto-ouverney/nikiti-books/customerror"
 	"github.com/go-chi/chi/v5"
+	"log"
 	"net/http"
 	"net/url"
 )
 
-// FindBook is a function to find a book, it receives a request and response. Send request to controller and return response
-func FindBook(w http.ResponseWriter, r *http.Request) {
+// Delete is a handler that send data to the controller and returns the response to the client
+func Delete(w http.ResponseWriter, r *http.Request) {
 	status := 500
 	response := []byte("{\"message\":\"Error\"}")
 	defer r.Body.Close()
@@ -20,7 +21,7 @@ func FindBook(w http.ResponseWriter, r *http.Request) {
 	}
 	c := controller.New()
 
-	response, err := c.FindBook(title)
+	err := c.Delete(title)
 
 	if err != nil {
 
@@ -30,16 +31,19 @@ func FindBook(w http.ResponseWriter, r *http.Request) {
 			response = []byte("{\"message\":\"Book not found\"}")
 
 		} else if err.Code == customerror.ECONFLICT {
-
-			status = 401
+			status = 400
+			log.Printf("Error: %v", err)
 			response = []byte("{\"message\":\"" + err.Error() + "\"}")
 
 		} else {
-			status = 400
+
 			response = []byte("{\"message\":\"" + err.Error() + "\"}")
 		}
 	} else {
-		status = 200
+		status = 204
+		w.WriteHeader(status)
+		w.Header().Set("Content-Type", "application/json")
+		return
 	}
 
 	w.WriteHeader(status)

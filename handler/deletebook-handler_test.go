@@ -1,7 +1,6 @@
 package handler_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/beto-ouverney/nikiti-books/config"
 	"github.com/beto-ouverney/nikiti-books/entity"
@@ -15,9 +14,11 @@ import (
 	"testing"
 )
 
-func TestFindBook(t *testing.T) {
+func TestDelete(t *testing.T) {
 
 	assertions := assert.New(t)
+
+	t.Log(config.MONGO_CONNECT)
 
 	// initialize the database if in the test environment, verify the port number
 	if strings.Contains(config.MONGO_CONNECT, "6306") {
@@ -30,7 +31,7 @@ func TestFindBook(t *testing.T) {
 
 	router := chi.NewRouter()
 
-	router.Get("/books/{title}", handler.FindBook)
+	router.Delete("/books/{title}", handler.Delete)
 
 	tests := []struct {
 		describe        string
@@ -41,38 +42,33 @@ func TestFindBook(t *testing.T) {
 		assertMessage   string
 	}{
 		{
-			describe: "Should be able to find a book",
-
+			describe:        "Should be able to delete a book",
 			title:           booksMock[0].Title,
-			expectedStatus:  http.StatusOK,
-			expectedMessage: booksMock[0],
-			assertMessage:   "Should be able to find a book",
+			expectedStatus:  http.StatusNoContent,
+			expectedMessage: []byte(nil),
+			assertMessage:   "Should be able to delete a book",
 		},
 		{
-			describe:        "Should be able to find a book",
-			title:           booksMock[1].Title,
-			expectedStatus:  http.StatusOK,
-			expectedMessage: booksMock[1],
-			assertMessage:   "Should be able to find a book",
+			describe:        "Should not be able to delete a book",
+			title:           booksMock[0].Title,
+			expectedStatus:  http.StatusNotFound,
+			expectedMessage: []byte("{\"message\":\"Book not found\"}"),
+			assertMessage:   "Should not be able to delete a book",
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.describe, func(t *testing.T) {
 			path := fmt.Sprintf("/books/%s", url.QueryEscape(test.title))
-
-			req := httptest.NewRequest(http.MethodGet, path, nil)
+			t.Log(url.QueryEscape(test.title))
+			req := httptest.NewRequest(http.MethodDelete, path, nil)
 			rr := httptest.NewRecorder()
 			router.ServeHTTP(rr, req)
 
 			assertions.Equal(test.expectedStatus, rr.Code, "Status code should be equal")
-			var actual entity.Book
 
-			err := json.Unmarshal(rr.Body.Bytes(), &actual)
-			if err != nil {
-				t.Fatal(err)
-			}
-			assertions.Equal(test.expectedMessage, actual, test.assertMessage)
+			assertions.Equal(test.expectedMessage, rr.Body.Bytes(), test.assertMessage)
+
 		})
 
 	}

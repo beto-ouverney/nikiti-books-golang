@@ -16,14 +16,14 @@ func FindAll(w http.ResponseWriter, r *http.Request) {
 	c := controller.New()
 
 	response, err := c.FindAll()
-	
+
 	if err != nil {
-		if err.Code != customerror.ECONFLICT {
-			log.Printf("Error: %v", err)
-			errorReturn(w, r, 500, "Internal Server Error")
-		}
 		status = 400
 		response = []byte("{\"message\":\"" + err.Message + "\"}")
+		if err.Code != customerror.ECONFLICT {
+			log.Printf("Error: %v", err)
+			response = []byte("{\"message\":\"" + err.Message + "\"}")
+		}
 	} else {
 		status = 200
 	}

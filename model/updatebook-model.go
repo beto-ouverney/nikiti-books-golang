@@ -13,7 +13,7 @@ func (m *BookModel) Update(param string, book *entity.Book) *customerror.CustomE
 	filter := bson.M{"title": param}
 	update := bson.M{"$set": book}
 
-	_, err := collection.UpdateOne(context.Background(), filter, update)
+	_, err := collection.UpdateMany(context.Background(), filter, update)
 	if err != nil {
 		return &customerror.CustomError{Code: customerror.EINVALID, Op: "booksmodel.Update", Err: err}
 	}

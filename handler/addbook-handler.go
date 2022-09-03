@@ -3,15 +3,13 @@ package handler
 import (
 	"encoding/json"
 	"github.com/beto-ouverney/nikiti-books/controller"
-	"github.com/beto-ouverney/nikiti-books/customerror"
-	"log"
 	"net/http"
 )
 
 // Add is a handler that send data to the controller and returns the response to the client
 func Add(w http.ResponseWriter, r *http.Request) {
-	status := 500
-	response := []byte("{\"message\":\"Error\"}")
+	var status int
+	var response []byte
 	defer r.Body.Close()
 
 	data := struct {
@@ -23,29 +21,16 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 	errJ := json.NewDecoder(r.Body).Decode(&data)
 	if errJ != nil {
-		errorReturn(w, r, 500, errJ.Error())
+		errorReturn(w, 500, errJ.Error())
 	}
 
 	c := controller.New()
 
 	err := c.Add(data.Title, data.Author, data.Synopsis, data.Category)
-
+	// Tratamento de erro
 	if err != nil {
 
-		if err.Code == customerror.ENOTFOUND {
-
-			status = 404
-			response = []byte("{\"message\":\"Book not found\"}")
-
-		} else if err.Code == customerror.ECONFLICT {
-			status = 400
-			log.Printf("Error: %v", err)
-			response = []byte("{\"message\":\"" + err.Error() + "\"}")
-
-		} else {
-			status = 400
-			response = []byte("{\"message\":\"" + err.Error() + "\"}")
-		}
+		errorHandler(err, status, response, w)
 	} else {
 		status = 201
 		w.WriteHeader(status)
@@ -53,10 +38,4 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(status)
-	w.Header().Set("Content-Type", "application/json")
-	_, errW := w.Write(response)
-	if errW != nil {
-		errorReturn(w, r, 500, errW.Error())
-	}
 }

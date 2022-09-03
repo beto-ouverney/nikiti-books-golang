@@ -2,18 +2,6 @@
 
 É uma API que controla os livros de um usuário
 
-## Conteúdo
-
-- [Visão Geral do Projeto](#general-view)
-    - [O Desafio](#the-challenge)
-- [O Desenvolvimento](#the-development-process)
-    - [Skills Usadas](#tools-used)
-    - [Lessons learned](#lessons-learned)
-- [Uso](#usage)
-- [Author](#author)
-
-## Visão Geral
-
 ### O Desafio
 
 Uma API que controla os livros de um usuário, lista um ou mais livros, exclui, adiciona e atualiza.

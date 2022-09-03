@@ -1,4 +1,5 @@
-# Nikiti Books GO LANG with SOLID, MONGODB e MVC #
+
+# Nikiti Books GO LANG with SOLID, MONGODB e MVC # <img height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" />
 
 É uma API que controla os livros de um usuário
 
